@@ -1,0 +1,10 @@
+/build/
+/.dart_tool/
+/pub/
+/packages
+.pub-cache/
+firebase_options.dart
+android/local.properties
+ios/Pods/
+.idea/
+.vscode/
