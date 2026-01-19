@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pushnotification/notification_service.dart';
 
 import 'firebase_options.dart';
@@ -11,6 +12,8 @@ Future <void> main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await dotenv.load(fileName: ".env");
 
   final notificationService = NotificationService();
   await notificationService.initFCM();
@@ -55,7 +58,17 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child:Text("Notifications") 
+        child:InkWell(
+          onTap: () async {
+            // Send test notification
+            NotificationService().sendPushNotification(
+              deviceToken: 'fqz_odq5RhyRkLsxynTW6Z:APA91bHRx8KpBQetfOmjZgKV6iasNyErml78IeW14twIAFscS5hXoYjGtLvRZn7OQS1IzgnH1fuHtwjQmU71w4WdWdfASZ40APvdpGrTpemVsm_gKVc97Nw',
+              title: 'Hesha',
+              body: 'hi akka',
+              imageUrl: 'https://www.newscientist.com/article/2339505-rspb-and-other-nature-charities-raise-alarm-over-uk-government-plans/',
+            );
+          },
+          child: Text("Notifications")) 
         ),
     );
   }
